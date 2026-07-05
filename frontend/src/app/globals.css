@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 248 248;
+    --foreground: 17 17 17;
+    --primary: 17 17 17;
+    --secondary: 107 107 107;
+    --accent: 10 10 10;
+    --muted: 229 229 229;
+    --border: 229 229 229;
+  }
+
+  * {
+    @apply border-mono-200;
+  }
+
+  body {
+    @apply bg-mono-50 text-mono-900 font-sans antialiased;
+    background: radial-gradient(ellipse at top, #F8F8F8 0%, #E5E5E5 100%);
+    min-height: 100vh;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* ═══════════════════════════════════════════════════════════════
+     THE GLASS FORMULA - Standard Cards
+     Frosted glass effect with subtle shadow
+  ═══════════════════════════════════════════════════════════════ */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px) saturate(160%);
+    -webkit-backdrop-filter: blur(15px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .glass-card-hover {
+    @apply glass-card;
+  }
+
+  .glass-card-hover:hover {
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     THE ONYX FORMULA - Emphasis/Dark Cards
+     Deep black sections for contrast
+  ═══════════════════════════════════════════════════════════════ */
+  .onyx-card {
+    background: #0A0A0A;
+    border-radius: 24px;
+    color: #FFFFFF;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .onyx-card-hover {
+    @apply onyx-card;
+  }
+
+  .onyx-card-hover:hover {
+    box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* Gradient Border - Monochrome version */
+  .gradient-border {
+    position: relative;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BUTTON VARIANTS - Monochrome
+  ═══════════════════════════════════════════════════════════════ */
+  .btn-primary {
+    @apply px-6 py-3 bg-mono-900 text-white font-medium;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-primary:hover {
+    @apply bg-mono-800;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:focus {
+    @apply outline-none ring-2 ring-mono-400 ring-offset-2;
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 font-medium text-mono-700;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-white text-mono-900;
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-mono-500 font-medium;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn-ghost:hover {
+    @apply text-mono-900 bg-mono-100;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     INPUT STYLES - Glass aesthetic
+  ═══════════════════════════════════════════════════════════════ */
+  .input-field {
+    @apply w-full px-4 py-3 text-mono-900;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .input-field::placeholder {
+    @apply text-mono-400;
+  }
+
+  .input-field:focus {
+    @apply outline-none;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     STATS CARD
+  ═══════════════════════════════════════════════════════════════ */
+  .stats-card {
+    @apply glass-card p-6 flex flex-col space-y-2;
+  }
+
+  .stats-value {
+    @apply text-3xl font-bold text-mono-900;
+    letter-spacing: -0.02em;
+  }
+
+  .stats-label {
+    @apply text-sm text-mono-500 font-medium;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CHAT MESSAGES - Monochrome
+  ═══════════════════════════════════════════════════════════════ */
+  .chat-message-user {
+    @apply bg-mono-900 text-white px-4 py-3;
+    border-radius: 20px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .chat-message-assistant {
+    @apply text-mono-800 px-4 py-3;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    border-bottom-left-radius: 6px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     NAVIGATION - Monochrome with black active states
+  ═══════════════════════════════════════════════════════════════ */
+  .nav-link {
+    @apply flex items-center space-x-3 px-4 py-3 text-mono-500 font-medium;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .nav-link:hover {
+    @apply text-mono-900 bg-mono-100;
+  }
+
+  .nav-link-active {
+    @apply bg-mono-900 text-white;
+  }
+
+  .nav-link-active:hover {
+    @apply bg-mono-800 text-white;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SCROLLBAR - Subtle monochrome
+  ═══════════════════════════════════════════════════════════════ */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  /* Loading Skeleton - Light */
+  .skeleton {
+    @apply animate-pulse rounded;
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BADGES - Monochrome variants
+  ═══════════════════════════════════════════════════════════════ */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-mono-900 text-white;
+  }
+
+  .badge-warning {
+    @apply badge;
+    background: rgba(0, 0, 0, 0.08);
+    color: #111111;
+  }
+
+  .badge-danger {
+    @apply badge bg-mono-700 text-white;
+  }
+
+  .badge-info {
+    @apply badge;
+    background: rgba(0, 0, 0, 0.05);
+    color: #6B6B6B;
+  }
+
+  /* Chart Container */
+  .chart-container {
+    @apply glass-card p-6 h-80;
+  }
+
+  /* Progress Ring */
+  .progress-ring {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     TABLE/LIST STYLING - Light dividers
+  ═══════════════════════════════════════════════════════════════ */
+  .table-row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .table-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     AVATAR - Grayscale by default, color on hover
+  ═══════════════════════════════════════════════════════════════ */
+  .avatar-grayscale {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out;
+  }
+
+  .avatar-grayscale:hover {
+    filter: grayscale(0%);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     FLOATING SIDEBAR - Glass effect
+  ═══════════════════════════════════════════════════════════════ */
+  .sidebar-glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    margin: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+  }
+}
+
+@layer utilities {
+  /* Text styles for monochrome */
+  .text-gradient {
+    @apply text-mono-900 font-bold;
+    letter-spacing: -0.02em;
+  }
+
+  .text-gradient-gold {
+    @apply text-mono-700 font-bold;
+    letter-spacing: -0.02em;
+  }
+
+  /* Heading styles */
+  .heading-primary {
+    @apply text-mono-900 font-bold;
+    letter-spacing: -0.02em;
+  }
+
+  .text-body {
+    @apply text-mono-500 font-medium;
+  }
+
+  /* Fade In Animation */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  /* Slide Up Animation */
+  .slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  /* Stagger Animation */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+
+  /* Divider - subtle */
+  .divider-subtle {
+    border-color: rgba(0, 0, 0, 0.05);
+  }
+}

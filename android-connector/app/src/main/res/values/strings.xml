@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FinBuddy Connector</string>
+    
+    <!-- Login -->
+    <string name="login_subtitle">Connect your financial transactions</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="login_info">Use the same credentials you use to login to the FinBuddy web dashboard</string>
+    
+    <!-- Main -->
+    <string name="connected_account">Connected Account</string>
+    <string name="logout">Logout</string>
+    <string name="user_icon">User icon</string>
+    
+    <!-- Permissions -->
+    <string name="permission_required">SMS Permission Required</string>
+    <string name="permission_message">To sync your financial transactions, we need permission to read SMS messages from your bank.</string>
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="warning">Warning</string>
+    
+    <!-- Sync -->
+    <string name="sync_transactions">Transaction Sync</string>
+    <string name="sync_description">Sync your bank SMS messages to automatically track transactions on your dashboard.</string>
+    <string name="sync_now">Sync Now</string>
+    <string name="sync_status">Sync status</string>
+    
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="auto_sync">Auto Sync</string>
+    <string name="auto_sync_description">Automatically sync new transactions every 6 hours</string>
+    
+    <!-- Info -->
+    <string name="info">Info</string>
+    <string name="info_message">Your SMS data is processed locally on your device. Only parsed transaction data is sent to our secure servers.</string>
+</resources>

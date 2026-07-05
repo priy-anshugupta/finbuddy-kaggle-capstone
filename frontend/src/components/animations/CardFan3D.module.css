@@ -1,0 +1,424 @@
+/* =============================================================================
+   3D Credit Card Shuffle/Deal Animation Styles
+   Cards deal from right to left in a curved arc motion
+   ============================================================================= */
+
+.container {
+  /* Custom Properties */
+  --card-width: 320px;
+  --card-height: 200px;
+  --card-radius: 16px;
+  --perspective-depth: 1500px;
+  
+  /* Colors */
+  --color-accent: #3b82f6;
+  --color-glow: rgba(59, 130, 246, 0.5);
+  --color-text: rgba(255, 255, 255, 0.9);
+  --color-text-dim: rgba(255, 255, 255, 0.5);
+
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Deal area - full width for card movement */
+.dealArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: var(--perspective-depth);
+  perspective-origin: center 50%;
+  opacity: 0.4;
+}
+
+/* Individual card wrapper */
+.cardWrapper {
+  position: absolute;
+  width: var(--card-width);
+  height: var(--card-height);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Arc path visual indicator (subtle) */
+.arcPath {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  right: 5%;
+  height: 250px;
+  border: 1px dashed rgba(59, 130, 246, 0.08);
+  border-radius: 50% 50% 0 0;
+  border-bottom: none;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   Credit Card Styles
+   ============================================================================= */
+
+.creditCard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-radius);
+  padding: 24px;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  
+  /* Card shadow */
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.8),
+    0 10px 20px -5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.creditCard:hover {
+  transform: translateZ(30px) scale(1.02);
+}
+
+/* Outer glow */
+.cardGlow {
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--card-radius) + 2px);
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.creditCard:hover .cardGlow {
+  opacity: 1;
+}
+
+/* Glass overlay for depth */
+.glassOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-radius);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+}
+
+/* EMV Chip */
+.chip {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 50px;
+  height: 38px;
+  background: linear-gradient(135deg, #ffd700 0%, #b8860b 50%, #ffd700 100%);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.chipLines {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  padding: 6px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.chipLines div {
+  background: linear-gradient(135deg, #c9a227 0%, #8b7500 100%);
+  border-radius: 2px;
+}
+
+/* Contactless payment icon */
+.contactless {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  color: rgba(255, 255, 255, 0.6);
+  transform: rotate(90deg);
+}
+
+/* Card number */
+.cardNumber {
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%);
+  font-family: 'Courier New', monospace;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--color-text);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Card details row */
+.cardDetails {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  gap: 32px;
+}
+
+.cardHolder,
+.cardExpiry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text);
+  text-transform: uppercase;
+}
+
+/* Card brand logo */
+.cardBrand {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+}
+
+.cardLogo {
+  font-size: 24px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--color-text);
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Mastercard logo */
+.mastercardLogo {
+  position: relative;
+  width: 60px;
+  height: 36px;
+}
+
+.mcCircle1,
+.mcCircle2 {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.mcCircle1 {
+  left: 0;
+  background: #eb001b;
+}
+
+.mcCircle2 {
+  right: 0;
+  background: #f79e1b;
+  mix-blend-mode: hard-light;
+}
+
+/* Shine effect */
+.shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  animation: cardShine 4s ease-in-out infinite;
+  animation-delay: inherit;
+}
+
+@keyframes cardShine {
+  0%, 100% { left: -100%; }
+  50% { left: 150%; }
+}
+
+/* =============================================================================
+   Environment Effects
+   ============================================================================= */
+
+/* Floor reflection */
+.reflection {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 200px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.05) 0%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* Ambient glow */
+.ambientGlow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.04) 0%,
+    transparent 60%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* =============================================================================
+   Responsive Design
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .container {
+    --card-width: 280px;
+    --card-height: 175px;
+    --card-radius: 14px;
+  }
+
+  .chip {
+    width: 40px;
+    height: 30px;
+    top: 18px;
+    left: 18px;
+  }
+
+  .contactless {
+    width: 24px;
+    height: 24px;
+    top: 18px;
+    right: 18px;
+  }
+
+  .cardNumber {
+    font-size: 16px;
+    left: 18px;
+    letter-spacing: 2px;
+  }
+
+  .cardDetails {
+    bottom: 18px;
+    left: 18px;
+    gap: 24px;
+  }
+
+  .value {
+    font-size: 12px;
+  }
+
+  .label {
+    font-size: 7px;
+  }
+
+  .cardBrand {
+    bottom: 18px;
+    right: 18px;
+  }
+
+  .cardLogo {
+    font-size: 18px;
+  }
+
+  .mastercardLogo {
+    width: 48px;
+    height: 28px;
+  }
+
+  .mcCircle1,
+  .mcCircle2 {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    --card-width: 240px;
+    --card-height: 150px;
+    --card-radius: 12px;
+  }
+
+  .chip {
+    width: 32px;
+    height: 24px;
+    top: 14px;
+    left: 14px;
+  }
+
+  .cardNumber {
+    font-size: 13px;
+    left: 14px;
+  }
+
+  .cardDetails {
+    bottom: 14px;
+    left: 14px;
+  }
+
+  .value {
+    font-size: 10px;
+  }
+
+  .cardLogo {
+    font-size: 14px;
+  }
+}
+
+/* =============================================================================
+   Accessibility
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .shine {
+    animation: none;
+  }
+  
+  .creditCard {
+    transition: none;
+  }
+}
